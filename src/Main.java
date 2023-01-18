@@ -1,5 +1,5 @@
-//Создать информационную систему позволяющую работать с сотрудниками некой компании \ студентами вуза \ учениками школы
-//(прямая отсылка к первому семинару “введение в базы данных”)
+//РЎРѕР·РґР°С‚СЊ РёРЅС„РѕСЂРјР°С†РёРѕРЅРЅСѓСЋ СЃРёСЃС‚РµРјСѓ РїРѕР·РІРѕР»СЏСЋС‰СѓСЋ СЂР°Р±РѕС‚Р°С‚СЊ СЃ СЃРѕС‚СЂСѓРґРЅРёРєР°РјРё РЅРµРєРѕР№ РєРѕРјРїР°РЅРёРё \ СЃС‚СѓРґРµРЅС‚Р°РјРё РІСѓР·Р° \ СѓС‡РµРЅРёРєР°РјРё С€РєРѕР»С‹
+//(РїСЂСЏРјР°СЏ РѕС‚СЃС‹Р»РєР° Рє РїРµСЂРІРѕРјСѓ СЃРµРјРёРЅР°СЂСѓ вЂњРІРІРµРґРµРЅРёРµ РІ Р±Р°Р·С‹ РґР°РЅРЅС‹С…вЂќ)
 
 import java.util.ArrayList;
 
@@ -73,12 +73,12 @@ class Infrastructure {
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());;
         }
-        return "Информация отсутствует.";
+        return "РРЅС„РѕСЂРјР°С†РёСЏ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚.";
     }
 
     public void showBirthYear(String year) {
         try {
-            System.out.println("Ученики запрашиваемого года рождения:");
+            System.out.println("РЈС‡РµРЅРёРєРё Р·Р°РїСЂР°С€РёРІР°РµРјРѕРіРѕ РіРѕРґР° СЂРѕР¶РґРµРЅРёСЏ:");
             for (int i = 0; i < db.students.size(); i++) {
                 if (db.students.get(i).getBirthYear() != null) {
                     if (db.students.get(i).getBirthYear().contains(year)) {
@@ -93,7 +93,7 @@ class Infrastructure {
 
     public void showAddress(int addressId) {
         try {
-            System.out.println("Ученики проживающие по запрашиваемой улице:");
+            System.out.println("РЈС‡РµРЅРёРєРё РїСЂРѕР¶РёРІР°СЋС‰РёРµ РїРѕ Р·Р°РїСЂР°С€РёРІР°РµРјРѕР№ СѓР»РёС†Рµ:");
             for(int i = 0; i<db.students.size(); i++){
                 if(db.students.get(i).getAddress() == addressId){
                     System.out.println(getAllInfo(db.students.get(i).getId()));;
@@ -106,7 +106,7 @@ class Infrastructure {
 
     public void showStatus(int statusId) {
         try {
-            System.out.println("Ученики запрашиваемой успеваемости:");
+            System.out.println("РЈС‡РµРЅРёРєРё Р·Р°РїСЂР°С€РёРІР°РµРјРѕР№ СѓСЃРїРµРІР°РµРјРѕСЃС‚Рё:");
             for(int i = 0; i<db.students.size(); i++){
                 if(db.students.get(i).getStatus() == statusId){
                     System.out.println(getAllInfo(db.students.get(i).getId()));;
@@ -119,7 +119,7 @@ class Infrastructure {
 
     public void showClass(int classId) {
         try {
-            System.out.println("Ученики запрашиваемого класса:");
+            System.out.println("РЈС‡РµРЅРёРєРё Р·Р°РїСЂР°С€РёРІР°РµРјРѕРіРѕ РєР»Р°СЃСЃР°:");
             for(int i = 0; i<db.students.size(); i++){
                 if(db.students.get(i).getClassIndex() == classId){
                     System.out.println(getAllInfo(db.students.get(i).getId()));;
@@ -133,44 +133,44 @@ class Infrastructure {
     Db init() {
         db = new Db();
 
-        db.students.add(new Student.StudentBuilder().id(1).name("Буханова Жанна").birthYear("2010").address(1).status(1).classIndex(1).phone(1).build());
-        db.students.add(new Student.StudentBuilder().id(2).name("Волков Никита").birthYear("2006").address(2).status(2).classIndex(4).phone(2).build());
-        db.students.add(new Student.StudentBuilder().id(3).name("Голева Алина").birthYear("2009").address(3).status(3).classIndex(2).phone(3).build());
-        db.students.add(new Student.StudentBuilder().id(4).name("Емельянов Арсений").birthYear("2008").address(4).status(1).classIndex(3).phone(4).build());
-        db.students.add(new Student.StudentBuilder().id(5).name("Казакова Надежда").birthYear("2010").address(5).status(2).classIndex(1).phone(5).build());
-        db.students.add(new Student.StudentBuilder().id(6).name("Морозова Ольга").birthYear("2006").address(6).status(3).classIndex(4).phone(6).build());
-        db.students.add(new Student.StudentBuilder().id(7).name("Неклюдова Мария").birthYear("2009").address(7).status(1).classIndex(2).phone(7).build());
-        db.students.add(new Student.StudentBuilder().id(8).name("Поляков Данил").birthYear("2008").address(8).status(2).classIndex(3).phone(8).build());
-        db.students.add(new Student.StudentBuilder().id(9).name("Сковородская Карина").birthYear("2008").address(9).status(3).classIndex(3).phone(9).build());
-        db.students.add(new Student.StudentBuilder().id(10).name("Тараканов Артём").birthYear("2006").address(10).status(1).classIndex(4).phone(10).build());
-        db.students.add(new Student.StudentBuilder().id(11).name("Василий Пупкин").build());
-        db.students.add(new Student.StudentBuilder().id(12).name("Юлия Зуева").birthYear("2008").build());
+        db.students.add(new Student.StudentBuilder().id(1).name("Р‘СѓС…Р°РЅРѕРІР° Р–Р°РЅРЅР°").birthYear("2010").address(1).status(1).classIndex(1).phone(1).build());
+        db.students.add(new Student.StudentBuilder().id(2).name("Р’РѕР»РєРѕРІ РќРёРєРёС‚Р°").birthYear("2006").address(2).status(2).classIndex(4).phone(2).build());
+        db.students.add(new Student.StudentBuilder().id(3).name("Р“РѕР»РµРІР° РђР»РёРЅР°").birthYear("2009").address(3).status(3).classIndex(2).phone(3).build());
+        db.students.add(new Student.StudentBuilder().id(4).name("Р•РјРµР»СЊСЏРЅРѕРІ РђСЂСЃРµРЅРёР№").birthYear("2008").address(4).status(1).classIndex(3).phone(4).build());
+        db.students.add(new Student.StudentBuilder().id(5).name("РљР°Р·Р°РєРѕРІР° РќР°РґРµР¶РґР°").birthYear("2010").address(5).status(2).classIndex(1).phone(5).build());
+        db.students.add(new Student.StudentBuilder().id(6).name("РњРѕСЂРѕР·РѕРІР° РћР»СЊРіР°").birthYear("2006").address(6).status(3).classIndex(4).phone(6).build());
+        db.students.add(new Student.StudentBuilder().id(7).name("РќРµРєР»СЋРґРѕРІР° РњР°СЂРёСЏ").birthYear("2009").address(7).status(1).classIndex(2).phone(7).build());
+        db.students.add(new Student.StudentBuilder().id(8).name("РџРѕР»СЏРєРѕРІ Р”Р°РЅРёР»").birthYear("2008").address(8).status(2).classIndex(3).phone(8).build());
+        db.students.add(new Student.StudentBuilder().id(9).name("РЎРєРѕРІРѕСЂРѕРґСЃРєР°СЏ РљР°СЂРёРЅР°").birthYear("2008").address(9).status(3).classIndex(3).phone(9).build());
+        db.students.add(new Student.StudentBuilder().id(10).name("РўР°СЂР°РєР°РЅРѕРІ РђСЂС‚С‘Рј").birthYear("2006").address(10).status(1).classIndex(4).phone(10).build());
+        db.students.add(new Student.StudentBuilder().id(11).name("Р’Р°СЃРёР»РёР№ РџСѓРїРєРёРЅ").build());
+        db.students.add(new Student.StudentBuilder().id(12).name("Р®Р»РёСЏ Р—СѓРµРІР°").birthYear("2008").build());
 
-        db.addresses.add(new Address(1, "Энергетиков"));
-        db.addresses.add(new Address(2, "Ленина"));
-        db.addresses.add(new Address(3, "Воровского"));
-        db.addresses.add(new Address(4, "Степана Разина"));
-        db.addresses.add(new Address(5, "Победы"));
-        db.addresses.add(new Address(6, "Аношкина"));
-        db.addresses.add(new Address(7, "Чичерина"));
-        db.addresses.add(new Address(8, "Молодогвардейцев"));
-        db.addresses.add(new Address(9, "Шота Руставели"));
-        db.addresses.add(new Address(10, "Гагарина"));
-        db.addresses.add(new Address(11, "Дзержинского"));
-        db.addresses.add(new Address(12, "Бажова"));
-        db.addresses.add(new Address(13, "Кулибина"));
-        db.addresses.add(new Address(14, "Сергея Герасимова"));
-        db.addresses.add(new Address(15, "Жукова"));
+        db.addresses.add(new Address(1, "Р­РЅРµСЂРіРµС‚РёРєРѕРІ"));
+        db.addresses.add(new Address(2, "Р›РµРЅРёРЅР°"));
+        db.addresses.add(new Address(3, "Р’РѕСЂРѕРІСЃРєРѕРіРѕ"));
+        db.addresses.add(new Address(4, "РЎС‚РµРїР°РЅР° Р Р°Р·РёРЅР°"));
+        db.addresses.add(new Address(5, "РџРѕР±РµРґС‹"));
+        db.addresses.add(new Address(6, "РђРЅРѕС€РєРёРЅР°"));
+        db.addresses.add(new Address(7, "Р§РёС‡РµСЂРёРЅР°"));
+        db.addresses.add(new Address(8, "РњРѕР»РѕРґРѕРіРІР°СЂРґРµР№С†РµРІ"));
+        db.addresses.add(new Address(9, "РЁРѕС‚Р° Р СѓСЃС‚Р°РІРµР»Рё"));
+        db.addresses.add(new Address(10, "Р“Р°РіР°СЂРёРЅР°"));
+        db.addresses.add(new Address(11, "Р”Р·РµСЂР¶РёРЅСЃРєРѕРіРѕ"));
+        db.addresses.add(new Address(12, "Р‘Р°Р¶РѕРІР°"));
+        db.addresses.add(new Address(13, "РљСѓР»РёР±РёРЅР°"));
+        db.addresses.add(new Address(14, "РЎРµСЂРіРµСЏ Р“РµСЂР°СЃРёРјРѕРІР°"));
+        db.addresses.add(new Address(15, "Р–СѓРєРѕРІР°"));
 
-        db.statuses.add(new Status(1, "Отличник"));
-        db.statuses.add(new Status(2, "Ударник"));
-        db.statuses.add(new Status(3, "Троечник"));
-        db.statuses.add(new Status(4, "Двоечник"));
+        db.statuses.add(new Status(1, "РћС‚Р»РёС‡РЅРёРє"));
+        db.statuses.add(new Status(2, "РЈРґР°СЂРЅРёРє"));
+        db.statuses.add(new Status(3, "РўСЂРѕРµС‡РЅРёРє"));
+        db.statuses.add(new Status(4, "Р”РІРѕРµС‡РЅРёРє"));
 
-        db.classes.add(new ClassIndex(1, "5А"));
-        db.classes.add(new ClassIndex(2, "6А"));
-        db.classes.add(new ClassIndex(3, "7Б"));
-        db.classes.add(new ClassIndex(4, "9А"));
+        db.classes.add(new ClassIndex(1, "5Рђ"));
+        db.classes.add(new ClassIndex(2, "6Рђ"));
+        db.classes.add(new ClassIndex(3, "7Р‘"));
+        db.classes.add(new ClassIndex(4, "9Рђ"));
 
         db.phones.add(new Phone(1, "89270569009"));
         db.phones.add(new Phone(2, "89271189845"));
@@ -207,13 +207,13 @@ class Student {
     public Student(StudentBuilder studentBuilder) {
 
         if (studentBuilder == null) {
-            throw new IllegalArgumentException("Неверная инициализация студента.");
+            throw new IllegalArgumentException("РќРµРІРµСЂРЅР°СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃС‚СѓРґРµРЅС‚Р°.");
         }
         if (studentBuilder.id <= 0) {
-            throw new IllegalArgumentException("Неверный идентификатор студента.");
+            throw new IllegalArgumentException("РќРµРІРµСЂРЅС‹Р№ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЃС‚СѓРґРµРЅС‚Р°.");
         }
         if (studentBuilder.name == null || studentBuilder.name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Неверное имя студента.");
+            throw new IllegalArgumentException("РќРµРІРµСЂРЅРѕРµ РёРјСЏ СЃС‚СѓРґРµРЅС‚Р°.");
         }
         this.id = studentBuilder.id;
         this.address = studentBuilder.address;
@@ -325,7 +325,7 @@ class Student {
             if (validateStudent()) {
                 stud = new Student(this);
             } else {
-                System.out.println("Объявлено недостаточное количество аргументов.");
+                System.out.println("РћР±СЉСЏРІР»РµРЅРѕ РЅРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р°СЂРіСѓРјРµРЅС‚РѕРІ.");
             }
             return stud;
         }
