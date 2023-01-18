@@ -12,6 +12,7 @@ public class Main {
         System.out.println(infrastructure.getAllInfo(2));
         System.out.println(infrastructure.getAllInfo(3));
         System.out.println(infrastructure.getAllInfo(33));
+        System.out.println(infrastructure.getAllInfo(11));
         infrastructure.showBirthYear("2008");
         infrastructure.showAddress(7);
         infrastructure.showStatus(2);
@@ -27,56 +28,105 @@ class Infrastructure {
     Db db;
 
     public String getAllInfo(int idStudent) {
-        for(int i = 0; i<db.students.size(); i++) {
-            if(db.students.get(i).getId() == idStudent) {
-                Student s = db.students.get(i);
+        String street;
+        String status;
+        String classInd;
+        String phone;
+        try {
+            for (int i = 0; i < db.students.size(); i++) {
+                if (db.students.get(i).getId() == idStudent) {
+                    Student s = db.students.get(i);
 
-                return String.format("%d %s %s %s %s %s %s",
-                        s.getId(),
-                        s.getName(),
-                        s.getBirthYear(),
-                        db.addresses.get(s.getAddress() - 1).streetName,
-                        db.statuses.get(s.getStatus() - 1).status,
-                        db.classes.get(s.getClassIndex() - 1).classIndex,
-                        db.phones.get(s.getPhone() - 1).phone);
+                    if (s.getAddress() == 0) {
+                        street = "None";
+                    } else {
+                        street = db.addresses.get(s.getAddress() - 1).streetName;
+                    }
+
+                    if (s.getStatus() == 0) {
+                        status = "None";
+                    } else {
+                        status = db.statuses.get(s.getStatus() - 1).status;
+                    }
+
+                    if (s.getClassIndex() == 0) {
+                        classInd = "None";
+                    } else {
+                        classInd = db.classes.get(s.getClassIndex() - 1).classIndex;
+                    }
+
+                    if (s.getPhone() == 0) {
+                        phone = "None";
+                    } else {
+                        phone = db.phones.get(s.getPhone() - 1).phone;
+                    }
+                    return String.format("%d %s %s %s %s %s %s",
+                            s.getId(),
+                            s.getName(),
+                            s.getBirthYear(),
+                            street,
+                            status,
+                            classInd,
+                            phone);
+                }
             }
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());;
         }
         return "Информация отсутствует.";
     }
 
     public void showBirthYear(String year) {
-        System.out.println("Ученики запрашиваемого года рождения:");
-        for(int i = 0; i<db.students.size(); i++){
-            if(db.students.get(i).getBirthYear().contains(year)){
-                System.out.println(getAllInfo(db.students.get(i).getId()));;
+        try {
+            System.out.println("Ученики запрашиваемого года рождения:");
+            for (int i = 0; i < db.students.size(); i++) {
+                if (db.students.get(i).getBirthYear() != null) {
+                    if (db.students.get(i).getBirthYear().contains(year)) {
+                        System.out.println(getAllInfo(db.students.get(i).getId()));
+                    }
+                }
             }
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());;
         }
     }
 
     public void showAddress(int addressId) {
-        System.out.println("Ученики проживающие по запрашиваемой улице:");
-        for(int i = 0; i<db.students.size(); i++){
-            if(db.students.get(i).getAddress() == addressId){
-                System.out.println(getAllInfo(db.students.get(i).getId()));;
+        try {
+            System.out.println("Ученики проживающие по запрашиваемой улице:");
+            for(int i = 0; i<db.students.size(); i++){
+                if(db.students.get(i).getAddress() == addressId){
+                    System.out.println(getAllInfo(db.students.get(i).getId()));;
+                }
             }
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());;
         }
     }
 
     public void showStatus(int statusId) {
-        System.out.println("Ученики запрашиваемой успеваемости:");
-        for(int i = 0; i<db.students.size(); i++){
-            if(db.students.get(i).getStatus() == statusId){
-                System.out.println(getAllInfo(db.students.get(i).getId()));;
+        try {
+            System.out.println("Ученики запрашиваемой успеваемости:");
+            for(int i = 0; i<db.students.size(); i++){
+                if(db.students.get(i).getStatus() == statusId){
+                    System.out.println(getAllInfo(db.students.get(i).getId()));;
+                }
             }
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());;
         }
     }
 
     public void showClass(int classId) {
-        System.out.println("Ученики запрашиваемого класса:");
-        for(int i = 0; i<db.students.size(); i++){
-            if(db.students.get(i).getClassIndex() == classId){
-                System.out.println(getAllInfo(db.students.get(i).getId()));;
+        try {
+            System.out.println("Ученики запрашиваемого класса:");
+            for(int i = 0; i<db.students.size(); i++){
+                if(db.students.get(i).getClassIndex() == classId){
+                    System.out.println(getAllInfo(db.students.get(i).getId()));;
+                }
             }
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());;
         }
     }
 
@@ -84,15 +134,17 @@ class Infrastructure {
         db = new Db();
 
         db.students.add(new Student.StudentBuilder().id(1).name("Буханова Жанна").birthYear("2010").address(1).status(1).classIndex(1).phone(1).build());
-        db.students.add(new Student.StudentBuilder().id(2).name( "Волков Никита").birthYear("2006").address(2).status(2).classIndex(4).phone(2).build());
-        db.students.add(new Student.StudentBuilder().id(3).name( "Голева Алина").birthYear("2009").address(3).status(3).classIndex(2).phone(3).build());
-        db.students.add(new Student.StudentBuilder().id(4).name( "Емельянов Арсений").birthYear("2008").address(4).status(1).classIndex(3).phone(4).build());
-        db.students.add(new Student.StudentBuilder().id(5).name( "Казакова Надежда").birthYear("2010").address(5).status(2).classIndex(1).phone(5).build());
-        db.students.add(new Student.StudentBuilder().id(6).name( "Морозова Ольга").birthYear("2006").address(6).status(3).classIndex(4).phone(6).build());
-        db.students.add(new Student.StudentBuilder().id(7).name( "Неклюдова Мария").birthYear("2009").address(7).status(1).classIndex(2).phone(7).build());
-        db.students.add(new Student.StudentBuilder().id(8).name( "Поляков Данил").birthYear("2008").address(8).status(2).classIndex(3).phone(8).build());
-        db.students.add(new Student.StudentBuilder().id(9).name( "Сковородская Карина").birthYear("2008").address(9).status(3).classIndex(3).phone(9).build());
-        db.students.add(new Student.StudentBuilder().id(10).name( "Тараканов Артём").birthYear("2006").address(10).status(1).classIndex(4).phone(10).build());
+        db.students.add(new Student.StudentBuilder().id(2).name("Волков Никита").birthYear("2006").address(2).status(2).classIndex(4).phone(2).build());
+        db.students.add(new Student.StudentBuilder().id(3).name("Голева Алина").birthYear("2009").address(3).status(3).classIndex(2).phone(3).build());
+        db.students.add(new Student.StudentBuilder().id(4).name("Емельянов Арсений").birthYear("2008").address(4).status(1).classIndex(3).phone(4).build());
+        db.students.add(new Student.StudentBuilder().id(5).name("Казакова Надежда").birthYear("2010").address(5).status(2).classIndex(1).phone(5).build());
+        db.students.add(new Student.StudentBuilder().id(6).name("Морозова Ольга").birthYear("2006").address(6).status(3).classIndex(4).phone(6).build());
+        db.students.add(new Student.StudentBuilder().id(7).name("Неклюдова Мария").birthYear("2009").address(7).status(1).classIndex(2).phone(7).build());
+        db.students.add(new Student.StudentBuilder().id(8).name("Поляков Данил").birthYear("2008").address(8).status(2).classIndex(3).phone(8).build());
+        db.students.add(new Student.StudentBuilder().id(9).name("Сковородская Карина").birthYear("2008").address(9).status(3).classIndex(3).phone(9).build());
+        db.students.add(new Student.StudentBuilder().id(10).name("Тараканов Артём").birthYear("2006").address(10).status(1).classIndex(4).phone(10).build());
+        db.students.add(new Student.StudentBuilder().id(11).name("Василий Пупкин").build());
+        db.students.add(new Student.StudentBuilder().id(12).name("Юлия Зуева").birthYear("2008").build());
 
         db.addresses.add(new Address(1, "Энергетиков"));
         db.addresses.add(new Address(2, "Ленина"));
@@ -177,7 +229,11 @@ class Student {
     }
 
     public int getAddress() {
-        return address;
+        if (address > 0) {
+            return address;
+        }else {
+            return 0;
+        }
     }
 
     public String getName() {
@@ -185,19 +241,35 @@ class Student {
     }
 
     public String getBirthYear() {
-        return birthYear;
+        if (birthYear != null) {
+            return birthYear;
+        }else {
+            return "None";
+        }
     }
 
     public int getStatus() {
-        return status;
+        if (status > 0) {
+            return status;
+        }else {
+            return 0;
+        }
     }
 
     public int getClassIndex() {
-        return classIndex;
+        if (classIndex > 0) {
+            return classIndex;
+        }else {
+            return 0;
+        }
     }
 
     public int getPhone() {
-        return phone;
+        if (phone > 0) {
+            return phone;
+        }else {
+            return 0;
+        }
     }
 
     public static class StudentBuilder {
